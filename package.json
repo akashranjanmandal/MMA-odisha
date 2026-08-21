@@ -1,0 +1,23 @@
+{
+  "name": "mastermindabacus-odisha",
+  "version": "1.0.0",
+  "description": "Master Mind Abacus Odisha website assets and minification pipeline",
+  "scripts": {
+    "build:css": "esbuild styles.css --minify --outfile=styles.min.css",
+    "build:js": "esbuild main.js --minify --outfile=main.min.js",
+    "build": "npm run build:css && npm run build:js",
+    "watch:css": "esbuild styles.css --minify --outfile=styles.min.css --watch",
+    "watch:js": "esbuild main.js --minify --outfile=main.min.js --watch",
+    "watch": "npm run build && (npm run watch:css & npm run watch:js)"
+  },
+  "keywords": [
+    "abacus",
+    "odisha",
+    "mental-arithmetic"
+  ],
+  "author": "Mastermind Abacus Odisha",
+  "license": "ISC",
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}
