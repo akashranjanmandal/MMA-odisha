@@ -539,6 +539,40 @@
       mnavCloseBtn.addEventListener('click', closeMnav);
       mnav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMnav));
 
+      /* fullscreen student gallery modal (opened from the compact hero video row) */
+      const galleryModal = document.getElementById('galleryModal');
+      const openGalleryBtn = document.getElementById('openGalleryModal');
+      if (galleryModal && openGalleryBtn) {
+        const galleryCloseBtn = document.getElementById('galleryModalClose');
+        let galleryLockedScrollY = 0;
+
+        function openGalleryModal() {
+          galleryLockedScrollY = window.scrollY;
+          document.body.style.position = 'fixed';
+          document.body.style.top = `-${galleryLockedScrollY}px`;
+          document.body.style.left = '0';
+          document.body.style.right = '0';
+          document.body.style.width = '100%';
+          galleryModal.classList.add('open');
+          galleryModal.setAttribute('aria-hidden', 'false');
+        }
+        function closeGalleryModal() {
+          document.body.style.position = '';
+          document.body.style.top = '';
+          document.body.style.left = '';
+          document.body.style.right = '';
+          document.body.style.width = '';
+          window.scrollTo(0, galleryLockedScrollY);
+          galleryModal.classList.remove('open');
+          galleryModal.setAttribute('aria-hidden', 'true');
+        }
+        openGalleryBtn.addEventListener('click', openGalleryModal);
+        if (galleryCloseBtn) galleryCloseBtn.addEventListener('click', closeGalleryModal);
+        addEventListener('keydown', e => {
+          if (e.key === 'Escape' && galleryModal.classList.contains('open')) closeGalleryModal();
+        });
+      }
+
       /* testimonial carousel */
       const stories = [
         { quote: "“My daughter never liked numbers, and it showed in her grades. After just 4 months with Mastermind Abacus, she has overcome her math fear, and her class performance has improved dramatically.”", name: "Amitesh Kulkarni", role: "COO, Tata Power" },
