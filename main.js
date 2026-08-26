@@ -1,6 +1,21 @@
     (function () {
       const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+      /* EmailJS: sends a copy of each form submission to the studio inbox.
+         Replace EMAILJS_PUBLIC_KEY with the real key from
+         EmailJS dashboard → Account → General → Public Key. */
+      const EMAILJS_PUBLIC_KEY = 'YOUR_EMAILJS_PUBLIC_KEY';
+      const EMAILJS_SERVICE_ID = 'service_pproild';
+      if (window.emailjs && EMAILJS_PUBLIC_KEY !== 'YOUR_EMAILJS_PUBLIC_KEY') {
+        emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+      }
+      function sendLeadEmail(templateId, params) {
+        if (!window.emailjs || EMAILJS_PUBLIC_KEY === 'YOUR_EMAILJS_PUBLIC_KEY') return;
+        emailjs.send(EMAILJS_SERVICE_ID, templateId, params).catch(err => {
+          console.error('EmailJS send failed:', err);
+        });
+      }
+
       /* Lenis smooth scroll — gives the page the slow, weighted scroll feel */
       let lenis = null;
       if (!reduced && window.Lenis) {
@@ -393,6 +408,13 @@
             setTimeout(() => { document.getElementById('dp-time-btn').style.borderColor = ''; }, 1500);
             return;
           }
+          sendLeadEmail('template_swmz7df', {
+            name: name,
+            phone: phone,
+            preferred_date: date,
+            preferred_time: time,
+            time: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })
+          });
           const msg = `Hi Mastermind Abacus, I'd like to book a free demo.%0AName: ${encodeURIComponent(name)}%0APhone: ${encodeURIComponent(phone)}%0APreferred date: ${encodeURIComponent(date)}%0APreferred time: ${encodeURIComponent(time)}`;
           window.open(`https://wa.me/919556023002?text=${msg}`, '_blank');
           closeDemoPopup();
@@ -642,6 +664,15 @@
           const age = document.getElementById('af-age').value.trim();
           const city = document.getElementById('af-city').value.trim();
           const franchisee = document.getElementById('af-franchisee').value.trim();
+          sendLeadEmail('template_6jxgazi', {
+            name: name,
+            phone: phone,
+            age: age,
+            city: city || 'N/A',
+            centre: franchisee || 'N/A',
+            timeline: selectedPriority,
+            time: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })
+          });
           const msg = `Hi Mastermind Abacus, I'd like to book a free assessment.%0AName: ${encodeURIComponent(name)}%0APhone: ${encodeURIComponent(phone)}%0AChild's age: ${encodeURIComponent(age)}%0AArea: ${encodeURIComponent(city || 'N/A')}%0AFranchisee: ${encodeURIComponent(franchisee || 'N/A')}%0ATimeline: ${encodeURIComponent(selectedPriority)}`;
           assessForm.classList.add('sent');
           setTimeout(() => {
