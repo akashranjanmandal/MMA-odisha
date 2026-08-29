@@ -1486,22 +1486,31 @@
     }
 
     .feat-grid-6 {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 24px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      width: 100%;
+      max-width: 1240px;
+      margin-inline: auto;
+    }
+
+    @media(max-width:1024px) {
+      .feat-grid-6 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 22px;
+      }
+    }
+
+    @media(max-width:640px) {
+      .feat-grid-6 {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
     }
 
     .feat-grid-6 .fcard {
-      flex: 1 1 320px;
-      max-width: 360px;
-    }
-
-    @media(max-width:480px) {
-      .feat-grid-6 .fcard {
-        flex: 1 1 100%;
-        max-width: 420px;
-      }
+      width: 100%;
+      max-width: 100%;
     }
 
     .fcard {
@@ -1509,24 +1518,26 @@
       background: var(--cream);
       color: var(--ink);
       border: 1px solid var(--line);
-      padding: 9px;
+      border-radius: 18px;
+      padding: 12px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 32px;
-      min-height: 520px;
+      gap: 16px;
+      min-height: 0;
       overflow: hidden;
-      transition: transform .5s var(--ease);
+      transition: transform .4s var(--ease), box-shadow .4s var(--ease);
     }
 
     @media(max-width:960px) {
       .fcard {
-        min-height: 0
+        min-height: 0;
       }
     }
 
     .fcard:hover {
-      transform: translateY(-6px)
+      transform: translateY(-5px);
+      box-shadow: 0 16px 36px -12px rgba(0, 0, 0, .18);
     }
 
     .fcard .tag {
@@ -1535,54 +1546,55 @@
       top: -1px;
       width: 20px;
       height: 20px;
-      background: var(--saffron)
+      background: var(--saffron);
     }
 
     .fcard-top {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: 14px;
-      padding: 10px 12px 0
+      gap: 12px;
+      padding: 8px 10px 0;
     }
 
     .fcard-top h3 {
-      font-size: 1.65rem;
+      font-size: 1.45rem;
       font-weight: 600;
-      letter-spacing: -.04em;
-      line-height: 1;
+      letter-spacing: -.03em;
+      line-height: 1.1;
       color: var(--ink);
-      max-width: 80%
+      max-width: 82%;
     }
 
     .fcard-top .idx {
-      font-size: 1.65rem;
+      font-size: 1.45rem;
       font-weight: 600;
-      letter-spacing: -.04em;
+      letter-spacing: -.03em;
       color: var(--ink);
-      opacity: .5
+      opacity: .5;
     }
 
     .fcard-mock {
       flex: 1;
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 12px 24px;
-      min-height: 0
+      padding: 6px 4px 6px;
+      min-height: 0;
     }
 
     .fcard-mock .mockcard {
       width: 100%;
-      max-width: 280px;
-      border-radius: 20px;
+      max-width: 100%;
+      border-radius: 16px;
       background: var(--sand);
       border: 1px solid rgba(0, 0, 0, .08);
       padding: 14px;
-      box-shadow: 0 8px 40px rgba(0, 0, 0, .25);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, .08);
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
       color: var(--black);
       overflow: hidden;
     }
@@ -1590,48 +1602,42 @@
     .mockcard-photo {
       width: calc(100% + 28px);
       margin: -14px -14px 0;
-      aspect-ratio: 16/9;
+      aspect-ratio: 16/10;
       overflow: hidden;
+      background: #f6efe7;
     }
 
     .mockcard-photo img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center center;
       display: block;
     }
 
     .fcard-mock .mockcard .mh {
-      font-size: .85rem;
+      font-size: .82rem;
       font-weight: 700;
       letter-spacing: .03em;
       text-transform: uppercase;
-      color: rgba(0, 0, 0, .45);
+      color: rgba(0, 0, 0, .48);
       display: flex;
       align-items: center;
-      gap: 8px
+      gap: 7px;
     }
 
     .fcard-mock .mockcard .mh .dot {
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: var(--saffron)
+      background: var(--saffron);
     }
 
     .fcard-mock .mockcard .ml {
-      font-size: .9rem;
-      font-weight: 600
-    }
-
-    .fcard-mock .mockcard .bar {
-      height: 8px;
-      border-radius: 5px;
-      background: rgba(0, 0, 0, .08)
-    }
-
-    .fcard-mock .mockcard .bar.short {
-      width: 60%
+      font-size: .88rem;
+      font-weight: 600;
+      line-height: 1.35;
+      color: var(--ink);
     }
 
     .fcard-mock .mockcard .chip {
@@ -1639,49 +1645,51 @@
       align-self: flex-start;
       background: var(--saffron);
       color: #fff;
-      font-size: .9rem;
+      font-size: .84rem;
       font-weight: 700;
-      padding: 8px 14px;
-      border-radius: 100px
+      padding: 7px 14px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: background .2s ease, transform .2s ease;
     }
 
-    .fcard-cap {
-      position: relative;
-      z-index: 1;
-      padding: 0 12px 14px;
-      font-size: 1.05rem;
-      font-weight: 600;
-      line-height: 1.25;
-      letter-spacing: -.01em;
-      max-width: 32ch
+    .fcard-mock .mockcard .chip:hover {
+      background: var(--saffron-2);
+      transform: translateX(2px);
     }
 
     /* ═══════ ABOUT / STORY ═══════ */
     .about-grid {
       display: grid;
-      grid-template-columns: .68fr 1.32fr;
-      gap: clamp(30px, 6vw, 70px);
-      align-items: center
+      grid-template-columns: 1fr 1.15fr;
+      gap: clamp(28px, 4vw, 54px);
+      align-items: center;
+      max-width: 1240px;
+      margin-inline: auto;
     }
 
-    @media(max-width:860px) {
+    @media(max-width:900px) {
       .about-grid {
-        grid-template-columns: 1fr
+        grid-template-columns: 1fr;
+        gap: 32px;
       }
     }
 
     .about-photo {
-      aspect-ratio: 1/1;
-      max-width: 340px;
+      width: 100%;
+      aspect-ratio: 16/11;
       overflow: hidden;
-      border-radius: 4px
+      border-radius: 20px;
+      box-shadow: 0 18px 45px -12px rgba(0, 0, 0, .2);
+      border: 1px solid var(--line);
+      position: relative;
     }
 
-    @media(max-width:860px) {
+    @media(max-width:900px) {
       .about-photo {
         max-width: 100%;
         width: 100%;
-        aspect-ratio: 4/3;
+        aspect-ratio: 16/11;
         margin: 0 auto;
       }
     }
@@ -1689,7 +1697,8 @@
     .about-photo img {
       width: 100%;
       height: 100%;
-      object-fit: cover
+      object-fit: cover;
+      object-position: center 30%;
     }
 
     .about-body {
@@ -1969,10 +1978,18 @@
       width: 100%;
       aspect-ratio: 16/10;
       overflow: hidden;
-      border-radius: 4px;
+      border-radius: 18px;
       display: flex;
       align-items: center;
-      justify-content: center
+      justify-content: center;
+      box-shadow: 0 14px 40px -12px rgba(0, 0, 0, .2);
+      border: 1px solid var(--line);
+      transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+    }
+
+    .play-frame:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 48px -10px rgba(0, 0, 0, .28);
     }
 
     @media(max-width:900px) {
@@ -1987,23 +2004,6 @@
       width: 100%;
       height: 100%;
       object-fit: cover
-    }
-
-    .play-frame::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, .2)
-    }
-
-    .play-frame .tag {
-      position: absolute;
-      right: -1px;
-      top: -1px;
-      width: 20px;
-      height: 20px;
-      background: var(--flash);
-      z-index: 2
     }
 
     /* ═══════ WHERE WE TEACH ═══════ */

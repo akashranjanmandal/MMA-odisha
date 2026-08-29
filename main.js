@@ -167,16 +167,24 @@
         lastScrollY = scrollY;
       }, { passive: true });
 
-      /* portrait video lightbox: gallery play buttons on cards carrying a
-         data-yt id open a real YouTube embed sized for 9:16 shorts */
+      /* video lightbox: supports both 9:16 portrait and 16:9 landscape videos */
       const videoLightbox = document.getElementById('videoLightbox');
       const videoLightboxFrame = document.getElementById('videoLightboxFrame');
       const videoLightboxClose = document.getElementById('videoLightboxClose');
       const videoLightboxFallback = document.getElementById('videoLightboxFallback');
       if (videoLightbox) {
-        function openVideoLightbox(ytId) {
-          videoLightboxFrame.innerHTML = `<iframe src="https://www.youtube.com/embed/${ytId}?autoplay=1&playsinline=1" title="Mastermind Abacus video" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-          videoLightboxFallback.href = `https://youtube.com/shorts/${ytId}`;
+        function openVideoLightbox(ytId, isLandscape = false) {
+          if (!ytId) return;
+          if (isLandscape) {
+            videoLightboxFrame.style.width = 'min(92vw, 860px)';
+            videoLightboxFrame.style.aspectRatio = '16/9';
+            videoLightboxFallback.href = `https://www.youtube.com/watch?v=${ytId}`;
+          } else {
+            videoLightboxFrame.style.width = 'min(92vw, calc(88vh * 9 / 16))';
+            videoLightboxFrame.style.aspectRatio = '9/16';
+            videoLightboxFallback.href = `https://youtube.com/shorts/${ytId}`;
+          }
+          videoLightboxFrame.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(ytId)}?autoplay=1&playsinline=1&rel=0&enablejsapi=0" title="Mastermind Abacus video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
           videoLightbox.classList.add('open');
         }
         function closeVideoLightbox() {
@@ -184,8 +192,20 @@
           videoLightboxFrame.innerHTML = '';
         }
         document.querySelectorAll('.gcard[data-yt] .gcard-play:not([tabindex="-1"])').forEach(btn => {
-          btn.addEventListener('click', () => {
-            openVideoLightbox(btn.closest('.gcard').dataset.yt);
+          btn.addEventListener('click', e => {
+            e.stopPropagation();
+            openVideoLightbox(btn.closest('.gcard').dataset.yt, false);
+          });
+        });
+        document.querySelectorAll('.play-frame[data-yt]').forEach(frame => {
+          frame.addEventListener('click', () => {
+            openVideoLightbox(frame.dataset.yt, true);
+          });
+          frame.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              openVideoLightbox(frame.dataset.yt, true);
+            }
           });
         });
         videoLightboxClose.addEventListener('click', closeVideoLightbox);
@@ -497,29 +517,15 @@
         }
       })();
 
-      /* social rail: single collapsed toggle, expands to show all icons.
-         Hidden while the hero gallery is in view on mobile — its fixed position
-         otherwise collides with the gallery's right-side nav arrow. */
+      /* social rail: opened by default, toggle to collapse/expand on user action */
       const socialRail = document.getElementById('socialRail');
       const socialRailToggle = document.getElementById('socialRailToggle');
       if (socialRail && socialRailToggle) {
-        socialRailToggle.addEventListener('click', () => {
+        socialRailToggle.addEventListener('click', e => {
+          e.stopPropagation();
           const open = socialRail.classList.toggle('open');
           socialRailToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         });
-        document.addEventListener('click', e => {
-          if (!socialRail.contains(e.target)) {
-            socialRail.classList.remove('open');
-            socialRailToggle.setAttribute('aria-expanded', 'false');
-          }
-        });
-
-        const heroGalleryWrap = document.querySelector('.hero-slider-wrap');
-        if (heroGalleryWrap && matchMedia('(max-width:760px)').matches) {
-          new IntersectionObserver(es => {
-            es.forEach(e => socialRail.classList.toggle('rail-hide', e.isIntersecting));
-          }, { threshold: 0.15 }).observe(heroGalleryWrap);
-        }
       }
 
       /* mobile/tablet nav panel toggle — robust scroll-lock that also blocks touch drag */
