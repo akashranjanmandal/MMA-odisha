@@ -3377,11 +3377,10 @@
     }
 
     .foot-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: start;
       gap: 32px;
-      flex-wrap: wrap;
       padding-bottom: 36px;
       margin-bottom: 40px;
       border-bottom: 1px solid var(--line);
@@ -3406,7 +3405,7 @@
 
     @media(max-width:520px) {
       .foot-top {
-        flex-direction: column;
+        grid-template-columns: 1fr;
         align-items: stretch;
       }
 
