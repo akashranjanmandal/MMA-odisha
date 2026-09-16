@@ -370,9 +370,11 @@
   initCustomSelect('timeSlotSelect', 'dp-time-btn', 'dp-time-current', 'dp-time-list', 'dp-time');
   initCustomSelect('dpCentreSelect', 'dp-centre-btn', 'dp-centre-current', 'dp-centre-list', 'dp-centre');
 
-  /* 5-second demo popup: opens on every reload, feeds lead data to EmailJS and WhatsApp */
+  /* 5-second demo popup: opens on every reload ONLY on index page */
   const demoBackdrop = document.getElementById('demoPopupBackdrop');
-  if (demoBackdrop) {
+  const path = window.location.pathname;
+  const isIndexPage = path.endsWith('/') || path.endsWith('/index.html') || path.endsWith('/index') || path === '';
+  if (demoBackdrop && isIndexPage) {
     const demoClose = document.getElementById('demoPopupClose');
     const demoForm = document.getElementById('demoPopupForm');
 
