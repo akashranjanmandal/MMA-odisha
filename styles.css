@@ -3718,6 +3718,17 @@
       gap: 22px;
     }
 
+    .demo-popup form.sent .af-field,
+    .demo-popup form.sent .af-submit,
+    .demo-popup form.sent .af-note,
+    .demo-popup form.sent .af-field-select {
+      display: none !important;
+    }
+
+    .demo-popup form.sent .af-thanks {
+      display: flex !important;
+    }
+
     .demo-popup .af-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -3765,15 +3776,15 @@
     .social-rail {
       position: fixed;
       right: 20px;
-      bottom: 100px;
+      bottom: 92px;
       z-index: 60;
       display: flex;
       flex-direction: column;
       align-items: center;
       width: 60px;
       height: 60px;
-      background: var(--sand);
-      border: 1px solid var(--line);
+      background: #FFEFE6;
+      border: 1px solid rgba(242, 108, 53, 0.3);
       border-radius: 30px;
       padding: 8px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, .15);
@@ -3799,7 +3810,7 @@
     }
 
     .rail-toggle:hover {
-      background: rgba(0, 0, 0, .06);
+      background: rgba(242, 108, 53, .12);
     }
 
     .rail-toggle svg {
@@ -3842,7 +3853,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(0, 0, 0, .05);
+      background: rgba(242, 108, 53, .1);
       color: var(--ink);
       transition: background .25s ease, color .25s ease;
       flex: none;
@@ -3858,11 +3869,52 @@
       height: 19px
     }
 
+    /* ═══════ FLOATING WHATSAPP BUTTON ═══════ */
+    .floating-whatsapp {
+      position: fixed;
+      right: 20px;
+      bottom: 24px;
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      background: #25D366;
+      color: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 8px 24px rgba(37, 211, 102, .45);
+      transition: transform .25s var(--ease), box-shadow .25s ease;
+    }
+
+    .floating-whatsapp:hover {
+      transform: scale(1.08);
+      box-shadow: 0 12px 28px rgba(37, 211, 102, .6);
+      color: #ffffff;
+    }
+
+    .floating-whatsapp svg {
+      width: 30px;
+      height: 30px;
+    }
+
     @media(max-width:760px) {
       .social-rail {
-        bottom: 76px;
+        bottom: 78px;
         right: 14px;
         transition: opacity .2s ease, transform .2s ease, border-radius .3s ease, height .35s var(--ease);
+      }
+
+      .floating-whatsapp {
+        right: 14px;
+        bottom: 16px;
+        width: 50px;
+        height: 50px;
+      }
+
+      .floating-whatsapp svg {
+        width: 26px;
+        height: 26px;
       }
 
       .social-rail.rail-hide {

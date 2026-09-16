@@ -10,7 +10,18 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 # 2. Canonical Redirection: www to non-www
 RewriteCond %{HTTP_HOST} ^www\.mastermindabacusodisha\.com$ [NC]
 RewriteRule ^(.*)$ https://mastermindabacusodisha.com/$1 [L,R=301]
+
+# 3. Clean URLs: redirect /page.html to /page (removes .html extension from URL bar)
+RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
+RewriteRule ^ /%1 [R=301,L,NE]
+
+# 4. Internally serve /page as /page.html (so file is found on disk)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+)$ $1.html [L]
 </IfModule>
+
 
 # Security Headers & HSTS
 <IfModule mod_headers.c>
