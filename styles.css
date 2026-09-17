@@ -1038,26 +1038,27 @@
       mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center/60% no-repeat;
     }
 
-    /* on wide screens the hero text sits left of the image slider, so it
-       reads left-aligned instead of centred */
+    /* on wide screens the hero text sits left of the image marquee, so it
+       reads left-aligned instead of centred — scoped to .hero-main so this
+       doesn't affect the plain centred hero used on other pages (blogs) */
     @media(min-width:760px) {
-      .hero-top {
+      .hero-main .hero-top {
         text-align: left;
       }
 
-      .hero h1,
-      .hero-kicker,
-      .hero-lead {
+      .hero-main .hero h1,
+      .hero-main .hero-kicker,
+      .hero-main .hero-lead {
         margin-inline: 0;
         text-align: left;
       }
 
-      .hero .pop-emoji {
+      .hero-main .pop-emoji {
         margin-inline: 0;
       }
 
-      .hero-ctas,
-      .hero-trust {
+      .hero-main .hero-ctas,
+      .hero-main .hero-trust {
         justify-content: flex-start;
       }
     }
