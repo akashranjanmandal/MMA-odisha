@@ -12,6 +12,22 @@
     });
   }
 
+  /* Google Sheets lead log: same-origin CORS isn't available from an Apps
+     Script webapp, so this fires as a no-cors POST — we can't read the
+     response, but the sheet still receives the row. */
+  const SHEETS_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzdL2PHs68d9y_QDjJfAI_Yny5TwEmXmtvZjU8cwxEA0WuM3LVXBqv_F5gux0lwzqGIKw/exec';
+  function sendLeadToSheet(fields) {
+    if (!SHEETS_WEBAPP_URL) return;
+    fetch(SHEETS_WEBAPP_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(Object.assign({ pageUrl: window.location.href }, fields))
+    }).catch(err => {
+      console.error('Sheet log failed:', err);
+    });
+  }
+
   /* Lenis smooth scroll — gives the page the slow, weighted scroll feel */
   let lenis = null;
   if (!reduced && window.Lenis) {
@@ -456,6 +472,16 @@
           centre: centre || 'N/A',
           time: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })
         });
+        sendLeadToSheet({
+          formType: 'Free Demo Popup',
+          name: name,
+          phone: phone,
+          age: '',
+          city: '',
+          preferred_date: date,
+          preferred_time: time,
+          centre: centre || 'N/A'
+        });
         demoForm.classList.add('sent');
         setTimeout(() => {
           closeDemoPopup();
@@ -549,6 +575,21 @@
       const open = socialRail.classList.toggle('open');
       socialRailToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
+  }
+
+  /* floating rail + WhatsApp button: stay out of the way of the hero on
+     first load, only appear once the visitor has scrolled past it */
+  const floatingWhatsapp = document.querySelector('.floating-whatsapp');
+  const heroSection = document.getElementById('top');
+  if (socialRail || floatingWhatsapp) {
+    const revealFloaters = () => {
+      const show = !heroSection || window.scrollY > heroSection.offsetHeight * 0.6;
+      if (socialRail) socialRail.classList.toggle('is-visible', show);
+      if (floatingWhatsapp) floatingWhatsapp.classList.toggle('is-visible', show);
+    };
+    revealFloaters();
+    addEventListener('scroll', revealFloaters, { passive: true });
+    addEventListener('resize', revealFloaters);
   }
 
   /* mobile/tablet nav panel toggle — robust scroll-lock that also blocks touch drag */
@@ -701,6 +742,16 @@
         centre: franchisee || 'N/A',
         timeline: selectedPriority,
         time: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })
+      });
+      sendLeadToSheet({
+        formType: 'Free Assessment',
+        name: name,
+        phone: phone,
+        age: age,
+        city: city || 'N/A',
+        preferred_date: '',
+        preferred_time: selectedPriority,
+        centre: franchisee || 'N/A'
       });
       assessForm.classList.add('sent');
     });

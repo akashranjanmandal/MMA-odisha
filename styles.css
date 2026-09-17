@@ -743,13 +743,203 @@
     .hero {
       display: flex;
       flex-direction: column;
-      gap: clamp(40px, 6vw, 64px);
-      padding-block-start: clamp(40px, 8vh, 90px);
+      gap: clamp(32px, 5vw, 48px);
+      padding-block-start: clamp(28px, 6vh, 64px);
       overflow: hidden;
       position: relative;
       background:
         radial-gradient(ellipse 80% 60% at 50% 0%, rgba(242, 108, 53, .16), transparent 65%),
         linear-gradient(180deg, var(--cream) 0%, var(--sand) 60%);
+    }
+
+    /* ═══════ HERO MAIN — text left, image marquee right on desktop, so
+       the marquee is visible without scrolling on first load ═══════ */
+    .hero-main {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(28px, 4vw, 40px);
+    }
+
+    @media(min-width:760px) {
+      .hero-main {
+        flex-direction: row;
+        align-items: center;
+        gap: 30px;
+      }
+
+      .hero-top {
+        flex: 1 1 50%;
+        min-width: 0;
+      }
+    }
+
+    /* ═══════ HERO IMAGE MARQUEE ═══════
+       Desktop: two columns of images on the right, auto-scrolling upward
+       (opposite offsets) and looping, faded at top/bottom edges. Each tile
+       keeps its photo's real orientation (landscape = short/wide, portrait
+       = tall) instead of force-cropping everything into one shape. Plain
+       images, no card/frame behind them.
+       Mobile: a single horizontal strip below the text, scrolling left. */
+    .hero-marquee {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 220px;
+    }
+
+    @media(min-width:760px) {
+      .hero-marquee {
+        flex: 1 1 50%;
+        width: auto;
+        height: min(560px, 68vh);
+        display: flex;
+        gap: 10px;
+      }
+    }
+
+    .hero-marquee-track {
+      display: flex;
+      flex-direction: row;
+      width: max-content;
+      height: 100%;
+      animation: hero-marquee-x 34s linear infinite;
+    }
+
+    .hero-marquee-track-2 {
+      display: none;
+    }
+
+    @media(min-width:760px) {
+      .hero-marquee-track {
+        flex: 1;
+        flex-direction: column;
+        width: 100%;
+        height: max-content;
+        animation: hero-marquee-y 30s linear infinite;
+        border-radius: 14px;
+        overflow: hidden;
+      }
+
+      .hero-marquee-track-2 {
+        display: flex;
+      }
+
+      .hero-marquee-track.reverse {
+        animation-name: hero-marquee-y-rev;
+        animation-duration: 38s;
+      }
+    }
+
+    .hero-marquee-set {
+      display: flex;
+      flex-direction: row;
+      flex: none;
+      align-items: center;
+      height: 100%;
+      gap: 8px;
+      padding-right: 8px;
+    }
+
+    @media(min-width:760px) {
+      .hero-marquee-set {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding-right: 0;
+        padding-bottom: 10px;
+      }
+    }
+
+    .hero-marquee-item {
+      flex: none;
+      height: 100%;
+      width: auto;
+      aspect-ratio: 3/4;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--sand);
+    }
+
+    @media(min-width:760px) {
+      .hero-marquee-item {
+        height: auto;
+        width: 100%;
+      }
+    }
+
+    .hero-marquee-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    @keyframes hero-marquee-x {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @keyframes hero-marquee-y {
+      from { transform: translateY(0); }
+      to { transform: translateY(-50%); }
+    }
+
+    @keyframes hero-marquee-y-rev {
+      from { transform: translateY(-50%); }
+      to { transform: translateY(0); }
+    }
+
+    .hero-marquee-fade {
+      position: absolute;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hero-marquee-fade-start,
+    .hero-marquee-fade-end {
+      top: 0;
+      bottom: 0;
+      width: 40px;
+    }
+
+    .hero-marquee-fade-start {
+      left: 0;
+      background: linear-gradient(90deg, var(--sand), transparent);
+    }
+
+    .hero-marquee-fade-end {
+      right: 0;
+      background: linear-gradient(270deg, var(--sand), transparent);
+    }
+
+    @media(min-width:760px) {
+
+      .hero-marquee-fade-start,
+      .hero-marquee-fade-end {
+        left: 0;
+        right: 0;
+        width: auto;
+        height: 56px;
+      }
+
+      .hero-marquee-fade-start {
+        top: 0;
+        bottom: auto;
+        background: linear-gradient(180deg, var(--cream), rgba(255, 241, 231, .55) 55%, transparent);
+      }
+
+      .hero-marquee-fade-end {
+        top: auto;
+        bottom: 0;
+        background: linear-gradient(0deg, var(--sand), transparent);
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+
+      .hero-marquee-track {
+        animation: none;
+      }
     }
 
     .hero-top {
@@ -759,13 +949,23 @@
     .hero h1 {
       max-width: 900px;
       margin-inline: auto;
+      font-size: clamp(2.1rem, 5.6vw, 3.9rem);
     }
 
     .pop-emoji {
       display: block;
-      width: clamp(44px, 6vw, 72px);
-      margin: 14px auto 0;
+      width: clamp(32px, 6vw, 72px);
+      height: auto;
+      margin: 10px auto 0;
       animation: pop-wiggle 2.2s ease-in-out infinite;
+    }
+
+    @media(max-width:520px) {
+      .pop-emoji {
+        width: 30px;
+        height: 30px;
+        margin-top: 6px;
+      }
     }
 
     @keyframes pop-wiggle {
@@ -836,6 +1036,30 @@
       background: var(--saffron);
       -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center/60% no-repeat;
       mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center/60% no-repeat;
+    }
+
+    /* on wide screens the hero text sits left of the image slider, so it
+       reads left-aligned instead of centred */
+    @media(min-width:760px) {
+      .hero-top {
+        text-align: left;
+      }
+
+      .hero h1,
+      .hero-kicker,
+      .hero-lead {
+        margin-inline: 0;
+        text-align: left;
+      }
+
+      .hero .pop-emoji {
+        margin-inline: 0;
+      }
+
+      .hero-ctas,
+      .hero-trust {
+        justify-content: flex-start;
+      }
     }
 
     /* ═══════ HERO — COMPACT STUDENT VIDEOS ROW ═══════ */
@@ -953,82 +1177,6 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 22px;
-    }
-
-    /* ═══════ HERO GALLERY SLIDER (auto-scroll, video + photo, manual arrows) ═══════ */
-    .hero-slider-wrap {
-      position: relative;
-      width: 100vw;
-      margin-left: calc(50% - 50vw);
-      padding-bottom: clamp(20px, 4vw, 40px);
-    }
-
-    .hero-slider {
-      display: flex;
-      gap: 22px;
-      overflow-x: auto;
-      scroll-behavior: smooth;
-      padding-inline: var(--m);
-      scrollbar-width: none;
-    }
-
-    .hero-slider::-webkit-scrollbar {
-      display: none
-    }
-
-    .slider-nav {
-      position: absolute;
-      top: 40%;
-      z-index: 5;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: #fff;
-      color: var(--navy);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 10px 26px -10px rgba(0, 0, 0, .4);
-      transition: transform .2s ease, background .2s ease;
-    }
-
-    .slider-nav:hover {
-      background: var(--saffron);
-      color: #fff;
-      transform: scale(1.08);
-    }
-
-    .slider-nav.prev {
-      left: calc(var(--m) - 4px);
-    }
-
-    .slider-nav.next {
-      right: calc(var(--m) - 4px);
-    }
-
-    .slider-nav svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    @media(max-width:760px) {
-      .slider-nav {
-        width: 38px;
-        height: 38px;
-      }
-
-      .slider-nav.prev {
-        left: 6px;
-      }
-
-      .slider-nav.next {
-        right: 6px;
-      }
-
-      .slider-nav svg {
-        width: 17px;
-        height: 17px;
-      }
     }
 
     .gcard {
@@ -3788,13 +3936,22 @@
       border-radius: 30px;
       padding: 8px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, .15);
-      transition: border-radius .3s ease, height .35s var(--ease);
+      opacity: 0;
+      transform: translateY(12px) scale(.9);
+      pointer-events: none;
+      transition: opacity .25s ease, transform .25s ease, border-radius .3s ease, height .35s var(--ease);
       overflow: hidden;
     }
 
     .social-rail.open {
       height: auto;
       gap: 8px;
+    }
+
+    .social-rail.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
     }
 
     .rail-toggle {
@@ -3869,10 +4026,12 @@
       height: 19px
     }
 
-    /* ═══════ FLOATING WHATSAPP BUTTON ═══════ */
+    /* ═══════ FLOATING WHATSAPP BUTTON — desktop only; kept clear of the
+       social rail (opposite corner) so the two never visually merge. Mobile
+       already has WhatsApp in the bottom .mbar bar, so this hides there. */
     .floating-whatsapp {
       position: fixed;
-      right: 20px;
+      left: 20px;
       bottom: 24px;
       z-index: 60;
       display: flex;
@@ -3884,13 +4043,26 @@
       color: #ffffff;
       border-radius: 50%;
       box-shadow: 0 8px 24px rgba(37, 211, 102, .45);
-      transition: transform .25s var(--ease), box-shadow .25s ease;
+      opacity: 0;
+      transform: translateY(12px) scale(.9);
+      pointer-events: none;
+      transition: opacity .25s ease, transform .25s var(--ease), box-shadow .25s ease;
+    }
+
+    .floating-whatsapp.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
     }
 
     .floating-whatsapp:hover {
       transform: scale(1.08);
       box-shadow: 0 12px 28px rgba(37, 211, 102, .6);
       color: #ffffff;
+    }
+
+    .floating-whatsapp.is-visible:hover {
+      transform: translateY(0) scale(1.08);
     }
 
     .floating-whatsapp svg {
@@ -3906,15 +4078,7 @@
       }
 
       .floating-whatsapp {
-        right: 14px;
-        bottom: 16px;
-        width: 50px;
-        height: 50px;
-      }
-
-      .floating-whatsapp svg {
-        width: 26px;
-        height: 26px;
+        display: none;
       }
 
       .social-rail.rail-hide {
