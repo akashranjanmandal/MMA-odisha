@@ -24,7 +24,7 @@
 
 - [Homepage](https://mastermindabacusodisha.com/): Official website of Master Mind Abacus Odisha featuring course overviews, interactive calculator, video demonstrations, student awards, and free assessment booking.
 - [Blogs](https://mastermindabacusodisha.com/blogs.html): Insights, teaching methodologies, and parent guides on mental arithmetic and child cognitive development.
-- [Why Early Math Skills Matter](https://mastermindabacusodisha.com/blog-single.html): In-depth article exploring the significance of early number sense and how abacus training builds arithmetic confidence.
+- [Why Early Math Skills Matter](https://mastermindabacusodisha.com/blog-single?post=early-math-skills): In-depth article exploring the significance of early number sense and how abacus training builds arithmetic confidence.
 
 ## Key Sections & Offerings
 
