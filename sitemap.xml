@@ -1,10 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://mastermindabacusodisha.com/</loc>
     <lastmod>2026-09-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://mastermindabacusodisha.com/gallery</loc>
+    <lastmod>2026-09-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/ourstory.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/participation-award-4.jpeg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/gala-winner-1.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/participation-award-2.jpeg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/gala-winner-2.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/participation-award-3.jpeg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/participation-award-1.jpeg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/gala-winner-3.jpg</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://mastermindabacusodisha.com/blogs</loc>

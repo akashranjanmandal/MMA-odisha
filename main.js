@@ -229,6 +229,91 @@
     });
   }
 
+  /* photo gallery (home preview + gallery.html): optional category filter chips,
+     and a lightbox that pages through the currently visible photos */
+  const galGrid = document.getElementById('galGrid');
+  const photoLightbox = document.getElementById('photoLightbox');
+  if (galGrid && photoLightbox) {
+    const items = [...galGrid.querySelectorAll('.gal-item')];
+    const chips = [...document.querySelectorAll('.gal-chip')];
+    const plbImg = document.getElementById('plbImg');
+    const plbCap = document.getElementById('plbCap');
+    const plbCount = document.getElementById('plbCount');
+    let visible = items;
+    let current = 0;
+    let lastFocus = null;
+
+    chips.forEach(chip => chip.addEventListener('click', () => {
+      const filter = chip.dataset.filter;
+      chips.forEach(c => {
+        const on = c === chip;
+        c.classList.toggle('is-active', on);
+        c.setAttribute('aria-pressed', on);
+      });
+      visible = items.filter(it => filter === 'all' || it.dataset.cat === filter);
+      items.forEach(it => { it.hidden = !visible.includes(it); });
+    }));
+
+    function showPhoto(i) {
+      current = (i + visible.length) % visible.length;
+      const it = visible[current];
+      const img = it.querySelector('img');
+      plbImg.src = it.querySelector('.gal-open').dataset.full;
+      plbImg.alt = img.alt;
+      plbCap.textContent = it.querySelector('figcaption').lastChild.textContent;
+      plbCount.textContent = `${current + 1} / ${visible.length}`;
+    }
+    function openPhoto(i) {
+      lastFocus = document.activeElement;
+      showPhoto(i);
+      photoLightbox.hidden = false;
+      document.documentElement.style.overflow = 'hidden';
+      if (lenis) lenis.stop();
+      document.getElementById('plbClose').focus();
+    }
+    function closePhoto() {
+      photoLightbox.hidden = true;
+      plbImg.removeAttribute('src');
+      document.documentElement.style.overflow = '';
+      if (lenis) lenis.start();
+      if (lastFocus) lastFocus.focus();
+    }
+
+    galGrid.addEventListener('click', e => {
+      const btn = e.target.closest('.gal-open');
+      if (btn) openPhoto(visible.indexOf(btn.closest('.gal-item')));
+    });
+    document.getElementById('plbClose').addEventListener('click', closePhoto);
+    document.getElementById('plbPrev').addEventListener('click', () => showPhoto(current - 1));
+    document.getElementById('plbNext').addEventListener('click', () => showPhoto(current + 1));
+    photoLightbox.addEventListener('click', e => {
+      if (e.target === photoLightbox || e.target.classList.contains('plb-stage')) closePhoto();
+    });
+    addEventListener('keydown', e => {
+      if (photoLightbox.hidden) return;
+      if (e.key === 'Escape') closePhoto();
+      else if (e.key === 'ArrowLeft') showPhoto(current - 1);
+      else if (e.key === 'ArrowRight') showPhoto(current + 1);
+      else if (e.key === 'Tab') {
+        /* keep focus inside the viewer */
+        const f = [...photoLightbox.querySelectorAll('button')];
+        const idx = f.indexOf(document.activeElement);
+        e.preventDefault();
+        f[(idx + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+      }
+    });
+
+    /* swipe left/right on touch screens */
+    let touchX = null;
+    photoLightbox.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+    photoLightbox.addEventListener('touchend', e => {
+      if (touchX === null) return;
+      const dx = e.changedTouches[0].clientX - touchX;
+      if (Math.abs(dx) > 45) showPhoto(current + (dx < 0 ? 1 : -1));
+      touchX = null;
+    }, { passive: true });
+  }
+
   /* hero gallery slider: auto-scrolls, pauses on hover, arrows nudge manually,
      loops back to start once the duplicate set has scrolled past */
   const gallerySlider = document.getElementById('gallerySlider');
