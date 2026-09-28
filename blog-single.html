@@ -10,7 +10,6 @@
   <meta name="keywords"
     content="early maths skills, number sense, abacus classes for children, mental arithmetic, maths foundation for kids">
   <meta name="robots" content="index, follow">
-  <link id="canonical-url" rel="canonical" href="https://mastermindabacusodisha.com/blog-single?post=early-math-skills">
 
   <link rel="icon" type="image/png" href="images/Logo.png">
   <link rel="apple-touch-icon" href="images/Logo.png">
@@ -20,7 +19,6 @@
     content="Early number sense and structured abacus learning can give children aged 5 to 14 a practical foundation for mathematics.">
   <meta property="og:image" content="https://mastermindabacusodisha.com/images/MasterMind_Blog1.jpg.jpeg">
   <meta property="og:type" content="article">
-  <meta id="og-url" property="og:url" content="https://mastermindabacusodisha.com/blog-single?post=early-math-skills">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Why Early Math Skills Matter for Children: Building a Strong Foundation with Abacus Learning | Mastermind Abacus Odisha">
   <meta name="twitter:description"
@@ -579,7 +577,7 @@
            /blog-single?post=<slug> (not a distinct clean path per post). Canonical
            and schema must point at this actual URL, or Google is told the real
            content lives at a URL that doesn't exist. */
-        var articleUrl = window.location.origin + '/blog-single.html?post=' + encodeURIComponent(slug);
+        var articleUrl = 'https://mastermindabacusodisha.com/blog-single?post=' + encodeURIComponent(slug);
         document.title = post.title + ' | Mastermind Abacus Odisha';
         var desc = post.lead;
         var descTag = document.querySelector('meta[name="description"]');
@@ -598,10 +596,14 @@
         if (twDesc) twDesc.setAttribute('content', desc);
         var twImage = document.querySelector('meta[name="twitter:image"]');
         if (twImage) twImage.setAttribute('content', new URL(post.image, window.location.href).href);
-        var canonical = document.getElementById('canonical-url');
-        if (canonical) canonical.setAttribute('href', articleUrl);
-        var ogUrl = document.getElementById('og-url');
-        if (ogUrl) ogUrl.setAttribute('content', articleUrl);
+        var canonical = document.createElement('link');
+        canonical.rel = 'canonical';
+        canonical.href = articleUrl;
+        document.head.appendChild(canonical);
+        var ogUrl = document.createElement('meta');
+        ogUrl.setAttribute('property', 'og:url');
+        ogUrl.setAttribute('content', articleUrl);
+        document.head.appendChild(ogUrl);
         var isoDate = new Date(post.date).toISOString().slice(0, 10);
         var schema = document.getElementById('article-schema');
         if (schema) {

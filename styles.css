@@ -946,7 +946,8 @@
       text-align: center;
     }
 
-    .hero h1 {
+    .hero h1:not(.hero-kicker),
+    .hero .hero-display {
       max-width: 900px;
       margin-inline: auto;
       font-size: clamp(2.1rem, 5.6vw, 3.9rem);
@@ -1047,6 +1048,7 @@
       }
 
       .hero-main .hero h1,
+      .hero-main .hero-display,
       .hero-main .hero-kicker,
       .hero-main .hero-lead {
         margin-inline: 0;
@@ -1065,6 +1067,7 @@
 
     /* ═══════ HERO — COMPACT STUDENT VIDEOS ROW ═══════ */
     .hero-videos {
+      width: 100%;
       max-width: 1040px;
       margin-inline: auto;
       text-align: center;
@@ -1083,6 +1086,30 @@
       justify-content: center;
       flex-wrap: wrap;
       gap: 22px;
+    }
+
+    /* phones: one swipeable row instead of a long vertical stack */
+    @media(max-width:760px) {
+      .video-trio {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        gap: 14px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-padding-inline: var(--m);
+        margin-inline: calc(var(--m) * -1);
+        padding: 4px var(--m) 18px;
+        scrollbar-width: none;
+      }
+
+      .video-trio::-webkit-scrollbar {
+        display: none;
+      }
+
+      .video-trio .gcard {
+        width: min(62vw, 220px);
+        scroll-snap-align: start;
+      }
     }
 
     .watch-more-link {
@@ -3436,7 +3463,7 @@
       padding: 22px 22px 22px;
     }
 
-    .centre-body h3 {
+    .centre-body h4 {
       margin: 0;
       font-size: 1.3rem;
       font-weight: 700;
