@@ -1495,7 +1495,32 @@
 
     .wia-step {
       display: flex;
-      gap: 18px;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .wia-thumb {
+      position: relative;
+      flex: none;
+      width: clamp(96px, 11vw, 128px);
+      aspect-ratio: 1;
+    }
+
+    .wia-thumb img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 18px;
+      border: 3px solid var(--sand);
+      box-shadow: 0 12px 24px -14px rgba(21, 19, 15, .4);
+    }
+
+    .wia-thumb .wia-num {
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      border: 3px solid var(--sand);
     }
 
     .wia-num {
@@ -3732,6 +3757,11 @@
       color: #C4481A;
     }
 
+    .gal-tag--classroom {
+      background: rgba(47, 128, 237, .12);
+      color: #1D5FB8;
+    }
+
     .gal-tag--awards {
       background: rgba(255, 181, 71, .22);
       color: #8A5200;
@@ -3958,6 +3988,227 @@
     @media(prefers-reduced-motion:reduce) {
       .gal-item.in:nth-child(n) { transform: none }
       .plb-stage img { animation: none }
+    }
+
+    /* ═══════ PHOTO CARDS (Why Parents Choose Us) ═══════ */
+    .pcards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 22px;
+      max-width: 1120px;
+      margin-inline: auto;
+    }
+
+    .pcard {
+      flex: 0 1 340px;
+      display: flex;
+      flex-direction: column;
+      background: var(--sand);
+      border: 1.5px solid var(--line-soft);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 16px 34px -26px rgba(21, 19, 15, .4);
+      transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .2s ease;
+    }
+
+    .pcard:hover {
+      transform: translateY(-4px);
+      border-color: var(--saffron);
+      box-shadow: 0 24px 40px -24px rgba(242, 108, 53, .45);
+    }
+
+    .pcard-img {
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: var(--cream);
+    }
+
+    .pcard-img img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .6s var(--ease);
+    }
+
+    .pcard:hover .pcard-img img {
+      transform: scale(1.05);
+    }
+
+    .pcard-body {
+      padding: 18px 20px 22px;
+    }
+
+    .pcard-body h3 {
+      font-size: 1.12rem;
+      font-weight: 700;
+      letter-spacing: -.01em;
+      color: var(--ink);
+    }
+
+    .pcard-body p {
+      margin: 6px 0 0;
+      font-size: .92rem;
+      font-weight: 500;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    /* phones: one swipeable row instead of five tall stacked cards */
+    @media(max-width:760px) {
+      .pcards {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        gap: 14px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-padding-inline: var(--m);
+        margin-inline: calc(var(--m) * -1);
+        padding: 4px var(--m) 18px;
+        scrollbar-width: none;
+      }
+
+      .pcards::-webkit-scrollbar {
+        display: none;
+      }
+
+      .pcard {
+        flex: 0 0 min(76vw, 300px);
+        scroll-snap-align: start;
+      }
+    }
+
+    /* ═══════ ILLUSTRATED BENEFIT CARDS ═══════ */
+    .bcards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1120px;
+      margin-inline: auto;
+    }
+
+    @media(max-width:900px) {
+      .bcards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+    }
+
+    .bcard {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 10px;
+      padding: clamp(22px, 3vw, 32px) clamp(14px, 2vw, 24px);
+      background: var(--sand);
+      border: 1.5px solid var(--line-soft);
+      border-radius: 22px;
+      transition: transform .3s var(--ease), border-color .2s ease;
+    }
+
+    .bcard:hover {
+      transform: translateY(-4px);
+      border-color: var(--saffron);
+    }
+
+    .bcard-ill {
+      display: grid;
+      place-items: center;
+      width: clamp(76px, 9vw, 96px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      margin-bottom: 4px;
+    }
+
+    .bcard-ill svg {
+      width: 62%;
+      height: 62%;
+      transition: transform .4s var(--ease);
+    }
+
+    .bcard:hover .bcard-ill svg {
+      transform: scale(1.1) rotate(-4deg);
+    }
+
+    .bcard h3 {
+      font-size: clamp(.98rem, 1.6vw, 1.1rem);
+      font-weight: 700;
+      letter-spacing: -.01em;
+      color: var(--ink);
+    }
+
+    .bcard p {
+      margin: 0;
+      max-width: 30ch;
+      font-size: clamp(.82rem, 1.3vw, .92rem);
+      font-weight: 500;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .bcards-3 {
+      max-width: 960px;
+    }
+
+    .bcards-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media(max-width:900px) {
+      .bcards-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* phones: requirement cards read as a compact list (icon left, text right) */
+    @media(max-width:600px) {
+      .bcards-rowmob {
+        grid-template-columns: 1fr;
+      }
+
+      .bcards-rowmob .bcard {
+        flex-direction: row;
+        text-align: left;
+        gap: 16px;
+        padding: 14px 18px;
+      }
+
+      .bcards-rowmob .bcard-ill {
+        width: 64px;
+        margin: 0;
+        flex: none;
+      }
+    }
+
+    /* free-assessment photo next to the contact options */
+    .contact-photo {
+      position: relative;
+      margin: 26px 0 0;
+      max-width: 460px;
+      aspect-ratio: 16 / 10;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px -26px rgba(21, 19, 15, .5);
+    }
+
+    .contact-photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 30%;
+    }
+
+    .contact-photo figcaption {
+      position: absolute;
+      inset: auto 0 0;
+      padding: 28px 18px 14px;
+      background: linear-gradient(transparent, rgba(21, 19, 15, .78));
+      color: #fff;
+      font-size: .9rem;
+      font-weight: 600;
     }
 
     /* ═══════ SECTION SPACING ═══════ */

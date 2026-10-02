@@ -3,18 +3,60 @@
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://mastermindabacusodisha.com/</loc>
-    <lastmod>2026-09-20</lastmod>
+    <lastmod>2026-10-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/hero/mastermind-abacus-national-gala-2025-award.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/hero/young-abacus-student-trophy-mastermind-abacus-team-odisha.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/hero/mastermind-abacus-competition-students-odisha.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/hero/abacus-mental-maths-competition-girls-solving-papers.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/hero/abacus-class-students-practising-mastermind-abacus-odisha.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/sections/abacus-students-visualising-numbers-eyes-closed.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/centres/mastermind-abacus-chandi-chhak-cuttack.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/centres/mastermind-abacus-chandrasekharpur-bhubaneswar.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/centres/mastermind-abacus-kalinga-nagar-bhubaneswar.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/centres/mastermind-abacus-khandagiri-bhubaneswar.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/centres/mastermind-abacus-mangalanagar-khordha.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/centres/mastermind-abacus-sector-6-cda-cuttack.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/centres/mastermind-abacus-siripur-bhubaneswar.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/centres/mastermind-abacus-sundarpada-bhubaneswar.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/centres/mastermind-abacus-vss-nagar-rasulgarh-bhubaneswar.jpg</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://mastermindabacusodisha.com/gallery</loc>
-    <lastmod>2026-09-26</lastmod>
+    <lastmod>2026-10-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image>
-      <image:loc>https://mastermindabacusodisha.com/images/ourstory.jpg</image:loc>
-    </image:image>
     <image:image>
       <image:loc>https://mastermindabacusodisha.com/images/participation-award-4.jpeg</image:loc>
     </image:image>
@@ -35,6 +77,30 @@
     </image:image>
     <image:image>
       <image:loc>https://mastermindabacusodisha.com/images/gala-winner-3.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/hero/mastermind-abacus-national-gala-2025-award.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/hero/young-abacus-student-trophy-mastermind-abacus-team-odisha.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/hero/mastermind-abacus-competition-students-odisha.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/hero/abacus-mental-maths-competition-girls-solving-papers.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/hero/abacus-class-students-practising-mastermind-abacus-odisha.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/sections/abacus-students-visualising-numbers-eyes-closed.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/sections/abacus-class-girls-learning-mental-maths.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://mastermindabacusodisha.com/images/centres/mastermind-abacus-khandagiri-bhubaneswar.jpg</image:loc>
     </image:image>
   </url>
   <url>
