@@ -28,6 +28,11 @@
     });
   }
 
+  function trackLead(formType) {
+    if (typeof window.gtag !== 'function') return;
+    window.gtag('event', 'generate_lead', { form_type: formType });
+  }
+
   /* Lenis smooth scroll — gives the page the slow, weighted scroll feel */
   let lenis = null;
   if (!reduced && window.Lenis) {
@@ -567,6 +572,7 @@
           preferred_time: time,
           centre: centre || 'N/A'
         });
+        trackLead('free_demo');
         demoForm.classList.add('sent');
         setTimeout(() => {
           closeDemoPopup();
@@ -838,6 +844,7 @@
         preferred_time: selectedPriority,
         centre: franchisee || 'N/A'
       });
+      trackLead('free_assessment');
       assessForm.classList.add('sent');
     });
   }
