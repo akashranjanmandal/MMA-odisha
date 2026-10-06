@@ -234,6 +234,35 @@
     });
   }
 
+  /* video carousel: arrows scroll one view's worth of cards; each arrow hides
+     when there is nothing more to show in its direction */
+  const vcarTrack = document.getElementById('vcarTrack');
+  if (vcarTrack) {
+    const vcarPrev = document.getElementById('vcarPrev');
+    const vcarNext = document.getElementById('vcarNext');
+    const updateVcar = () => {
+      const max = vcarTrack.scrollWidth - vcarTrack.clientWidth - 12;
+      vcarPrev.disabled = vcarTrack.scrollLeft <= 12;
+      vcarNext.disabled = vcarTrack.scrollLeft >= max;
+    };
+    const step = dir => {
+      const card = vcarTrack.querySelector('.gcard');
+      const gap = parseFloat(getComputedStyle(vcarTrack).columnGap) || 0;
+      const cardW = card ? card.getBoundingClientRect().width + gap : vcarTrack.clientWidth;
+      const perView = Math.max(1, Math.floor((vcarTrack.clientWidth + gap) / cardW));
+      vcarTrack.scrollBy({ left: dir * perView * cardW, behavior: reduced ? 'auto' : 'smooth' });
+    };
+    vcarPrev.addEventListener('click', () => step(-1));
+    vcarNext.addEventListener('click', () => step(1));
+    vcarTrack.addEventListener('scroll', updateVcar, { passive: true });
+    vcarTrack.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+    });
+    addEventListener('resize', updateVcar);
+    updateVcar();
+  }
+
   /* photo gallery (home preview + gallery.html): optional category filter chips,
      and a lightbox that pages through the currently visible photos */
   const galGrid = document.getElementById('galGrid');

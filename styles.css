@@ -1081,34 +1081,115 @@
       margin-bottom: 26px;
     }
 
-    .video-trio {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 22px;
+    /* ═══════ VIDEO CAROUSEL: one row, arrow buttons at the sides, swipe on touch ═══════ */
+    .vcar {
+      position: relative;
     }
 
-    /* phones: one swipeable row instead of a long vertical stack */
-    @media(max-width:760px) {
+    .video-trio {
+      display: flex;
+      gap: 22px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      overscroll-behavior-x: contain;
+      padding: 6px 4px 22px;
+      scrollbar-width: none;
+    }
+
+    .video-trio::-webkit-scrollbar {
+      display: none;
+    }
+
+    .video-trio:focus-visible {
+      outline: 2px solid var(--saffron);
+      outline-offset: 4px;
+      border-radius: 22px;
+    }
+
+    .video-trio .gcard {
+      scroll-snap-align: start;
+    }
+
+    .vcar-btn {
+      position: absolute;
+      top: calc(50% - 8px);
+      z-index: 3;
+      display: grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: var(--sand);
+      color: var(--saffron);
+      box-shadow: 0 12px 28px -10px rgba(21, 19, 15, .45);
+      cursor: pointer;
+      transform: translateY(-50%);
+      transition: background-color .2s ease, color .2s ease, opacity .2s ease, transform .2s var(--ease);
+    }
+
+    .vcar-btn svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .vcar-prev {
+      left: -26px;
+    }
+
+    .vcar-next {
+      right: -26px;
+    }
+
+    .vcar-btn:hover:not(:disabled) {
+      background: var(--saffron);
+      color: #fff;
+      transform: translateY(-50%) scale(1.06);
+    }
+
+    .vcar-btn:focus-visible {
+      outline: 3px solid var(--saffron);
+      outline-offset: 3px;
+    }
+
+    .vcar-btn:disabled {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* tablets and phones: the row bleeds to the screen edges, arrows sit just inside */
+    @media(max-width:1100px) {
       .video-trio {
-        flex-wrap: nowrap;
-        justify-content: flex-start;
         gap: 14px;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
         scroll-padding-inline: var(--m);
         margin-inline: calc(var(--m) * -1);
-        padding: 4px var(--m) 18px;
-        scrollbar-width: none;
+        padding-inline: var(--m);
       }
 
-      .video-trio::-webkit-scrollbar {
-        display: none;
+      .vcar-prev {
+        left: calc(8px - var(--m));
       }
 
+      .vcar-next {
+        right: calc(8px - var(--m));
+      }
+    }
+
+    @media(max-width:600px) {
       .video-trio .gcard {
-        width: min(62vw, 220px);
-        scroll-snap-align: start;
+        width: min(58vw, 220px);
+      }
+
+      .vcar-btn {
+        width: 42px;
+        height: 42px;
+      }
+
+      .vcar-btn svg {
+        width: 20px;
+        height: 20px;
       }
     }
 
